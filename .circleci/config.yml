@@ -6,6 +6,17 @@ general-config: &general-config
 version: 2
 
 jobs:
+  build-runtime:
+    <<: *general-config
+    steps:
+      - checkout
+      - setup_remote_docker
+      - run:
+          name: Build Image
+          command: docker build --pull -t elixir:runtime-alpine runtime
+      - run:
+          name: Show images
+          command: docker images
   build-master:
     <<: *general-config
     steps:
@@ -44,6 +55,7 @@ workflows:
   version: 2
   full_test_suite:
     jobs:
+      - build-runtime
       - build-master
       - build-1.8
       - build-1.9
