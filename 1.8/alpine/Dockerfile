@@ -1,4 +1,14 @@
-FROM erlang:21-alpine
+FROM erlang:22-alpine
+
+# warm up npm cache
+COPY package-lock.json .
+RUN npm ci
+
+# install system dependencies
+RUN apk update \
+    && apk --no-cache --update add nodejs nodejs-npm openssl-dev build-base make gcc imagemagick \
+    && mix local.rebar --force \
+    && mix local.hex --force
 
 # elixir expects utf8.
 ENV ELIXIR_VERSION="v1.8.2" \
@@ -21,5 +31,6 @@ RUN set -xe \
 	&& cd /usr/local/src/elixir \
 	&& make install clean \
 	&& apk del .build-deps
+
 
 CMD ["iex"]
