@@ -1,9 +1,13 @@
+general-config: &general-config
+  parallelism: 1
+  docker:
+    - image: circleci/circleci-cli
+
 version: 2
+
 jobs:
   master:
-    docker:
-      - image: circleci/circleci-cli
-
+    <<: *general-config
     steps:
       - checkout
       - setup_remote_docker
@@ -14,9 +18,7 @@ jobs:
           name: Show images
           command: docker images
   1.8:
-    docker:
-      - image: circleci/circleci-cli
-
+    <<: *general-config
     steps:
       - checkout
       - setup_remote_docker
@@ -27,9 +29,7 @@ jobs:
           name: Show images
           command: docker images
   1.9:
-    docker:
-      - image: circleci/circleci-cli
-
+    <<: *general-config
     steps:
       - checkout
       - setup_remote_docker
