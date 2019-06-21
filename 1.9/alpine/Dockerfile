@@ -29,6 +29,7 @@ RUN apk update \
     && mix local.hex --force
 
 # warm up npm cache
+COPY package.json .
 COPY package-lock.json .
 RUN npm ci
 
