@@ -39,3 +39,11 @@ jobs:
       - run:
           name: Show images
           command: docker images
+
+workflows:
+  version: 2
+  full_test_suite:
+    jobs:
+      - build-master
+      - build-1.8
+      - build-1.9
