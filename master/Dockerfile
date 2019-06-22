@@ -24,7 +24,7 @@ RUN set -xe \
 
 # install system dependencies
 RUN apk update \
-    && apk --no-cache --update add nodejs nodejs-npm openssl-dev build-base make gcc imagemagick bash \
+    && apk --no-cache --update add nodejs nodejs-npm openssl-dev build-base make gcc imagemagick \
     && mix local.rebar --force \
     && mix local.hex --force
 
@@ -32,8 +32,8 @@ RUN apk update \
 ENV MIX_ENV=prod \
     NODE_ENV=prod
 
-# Caching dependencies
-WORKDIR /opt/app-cache
+# Where the elixir app should live
+WORKDIR /opt/app
 
 # warm up mix cache
 COPY mix.exs .
@@ -41,8 +41,8 @@ COPY mix.lock .
 RUN mix do deps.get, deps.compile
 
 # warm up npm cache
-COPY package.json .
-COPY package-lock.json .
-RUN npm ci
+COPY package.json ./apps/admin/assets/package.json
+COPY package-lock.json ./apps/admin/assets/package-lock.json
+RUN cd ./apps/admin/assets && npm ci
 
 CMD ["iex"]

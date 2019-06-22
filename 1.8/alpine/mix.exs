@@ -33,7 +33,17 @@ defmodule Docker.MixProject do
       {:phoenix_html, "~> 2.11"},
       {:plug_cowboy, "~> 2.0"},
       {:guardian, "~> 1.0"},
-      {:bamboo, "~> 1.2"}
+      {:bamboo, "~> 1.2"},
+      {:arc_gcs, "~> 0.1.0", only: :prod},
+      {:junit_formatter, "~> 3.0", only: :test},
+      {:ex_machina, "~> 2.3", only: :test},
+      {:phoenix_live_reload, "~> 1.2", only: :dev},
+      {:junit_formatter, "~> 3.0", only: :test},
+      {:junit_formatter, "~> 3.0", only: :test},
+      {:ex_machina, "~> 2.3", only: :test},
+      {:exvcr, "~> 0.10", only: :test},
+      {:phoenix_live_reload, "~> 1.2", only: :dev},
+      {:junit_formatter, "~> 3.0", only: :test}
     ]
   end
 end
