@@ -34,6 +34,7 @@ defmodule Docker.MixProject do
       {:plug_cowboy, "~> 2.0"},
       {:guardian, "~> 1.0"},
       {:bamboo, "~> 1.2"},
+      {:premailex, "~> 0.3.0"},
       {:arc_gcs, "~> 0.1.0", only: :prod},
       {:junit_formatter, "~> 3.0", only: :test},
       {:ex_machina, "~> 2.3", only: :test},
