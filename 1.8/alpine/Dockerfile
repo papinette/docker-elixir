@@ -28,6 +28,18 @@ RUN apk update \
     && mix local.rebar --force \
     && mix local.hex --force
 
+# production mode
+ENV MIX_ENV=prod \
+    NODE_ENV=prod
+
+# Caching dependencies
+WORKDIR /opt/app-cache
+
+# warm up mix cache
+COPY mix.exs .
+COPY mix.lock .
+RUN mix do deps.get, deps.compile
+
 # warm up npm cache
 COPY package.json .
 COPY package-lock.json .
